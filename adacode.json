@@ -1,0 +1,115 @@
+{
+  "id": "deckcraft",
+  "nama": "DeckCraft",
+  "deskripsi": "Pembuat presentasi ala PowerPoint — ditulis dari nol dengan Rust. Buka & simpan PPTX, ekspor PDF/gambar, bisa disetir agen AI lewat MCP.",
+  "kategori": "Produktivitas",
+  "tag": "Work Efficiency",
+  "sumber": "https://github.com/storytold/deckcraft",
+  "lisensi": "MIT OR Apache-2.0",
+  "sorot": [
+    "Buka & simpan PPTX; ekspor PDF, PNG/JPEG per slide, GIF",
+    "8 tema bawaan, tabel, grafik, gambar, pengurut slide",
+    "Agen AI adaCODE bisa menyusun slide di folder kerja lewat MCP",
+    "Status hulu: alpha (v0.10.0)"
+  ],
+  "perkiraan": {
+    "disk_mb": 165,
+    "ram_mb": 250,
+    "catatan": "Unduhan 78 MB (zip portabel resmi, SHA-256 diverifikasi); terpasang ±165 MB. RAM perkiraan, belum diukur."
+  },
+  "ikon": "deckcraft.png",
+  "gambar": "gambar.jpg",
+  "versi_manifes": 1,
+  "butuh_gpu": false,
+  "bisa_pindah_vps": false,
+  "os_didukung": [
+    "win32"
+  ],
+  "app_minimal": "0.2.4",
+  "prasyarat": [],
+  "pasang": [
+    {
+      "aksi": "log",
+      "pesan": "Mengunduh DeckCraft 0.10.0 (±78 MB)…"
+    },
+    {
+      "aksi": "shell",
+      "perintah_windows": "curl -L --fail -o deckcraft.zip https://github.com/storytold/deckcraft/releases/download/v0.10.0/deckcraft-0.10.0-windows-x64-portable.zip"
+    },
+    {
+      "aksi": "log",
+      "pesan": "Memeriksa keaslian berkas (SHA-256)…"
+    },
+    {
+      "aksi": "shell",
+      "perintah_windows": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if((Get-FileHash deckcraft.zip -Algorithm SHA256).Hash -ne '042d62082e9a5c795ee870cbfd652ef31917867ae058c6d33d17d1b2a2d7fb8a'){Write-Host 'SHA-256 tidak cocok - unduhan ditolak'; Remove-Item deckcraft.zip; exit 1}\""
+    },
+    {
+      "aksi": "log",
+      "pesan": "Membongkar DeckCraft ke folder app…"
+    },
+    {
+      "aksi": "shell",
+      "perintah_windows": "\"%SystemRoot%\\System32\\tar.exe\" -xf deckcraft.zip && xcopy /e /y /i /q deckcraft-0.10.0-windows-x64-portable app && rmdir /s /q deckcraft-0.10.0-windows-x64-portable && del /q deckcraft.zip"
+    },
+    {
+      "aksi": "log",
+      "pesan": "DeckCraft siap. Setelan tersimpan di %APPDATA%\\DeckCraft (app ini belum punya mode portabel)."
+    }
+  ],
+  "jalan": {
+    "perintah_windows": "app\\deckcraft.exe",
+    "tanpa_url": true
+  },
+  "perbarui": [
+    {
+      "aksi": "log",
+      "pesan": "Memperbarui DeckCraft ke 0.10.0 (±78 MB) — setelan dipertahankan…"
+    },
+    {
+      "aksi": "shell",
+      "perintah_windows": "curl -L --fail -o deckcraft.zip https://github.com/storytold/deckcraft/releases/download/v0.10.0/deckcraft-0.10.0-windows-x64-portable.zip"
+    },
+    {
+      "aksi": "log",
+      "pesan": "Memeriksa keaslian berkas (SHA-256)…"
+    },
+    {
+      "aksi": "shell",
+      "perintah_windows": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if((Get-FileHash deckcraft.zip -Algorithm SHA256).Hash -ne '042d62082e9a5c795ee870cbfd652ef31917867ae058c6d33d17d1b2a2d7fb8a'){Write-Host 'SHA-256 tidak cocok - unduhan ditolak'; Remove-Item deckcraft.zip; exit 1}\""
+    },
+    {
+      "aksi": "log",
+      "pesan": "Membongkar DeckCraft ke folder app…"
+    },
+    {
+      "aksi": "shell",
+      "perintah_windows": "\"%SystemRoot%\\System32\\tar.exe\" -xf deckcraft.zip && xcopy /e /y /i /q deckcraft-0.10.0-windows-x64-portable app && rmdir /s /q deckcraft-0.10.0-windows-x64-portable && del /q deckcraft.zip"
+    }
+  ],
+  "setel_ulang": [],
+  "catatan": {
+    "sumber_binari": "Zip portabel resmi rilis v0.10.0 dari GitHub storytold/deckcraft; SHA-256 dicocokkan dengan SHA256SUMS.txt rilis yang sama (042d62082e9a5c795ee870cbfd652ef31917867ae058c6d33d17d1b2a2d7fb8a).",
+    "satu_folder": "Zip DeckCraft 0.10.0 tak membawa portable.txt dan binernya tak mengenal mode portabel (diperiksa 25 Okt 2026): setelan & log ke %APPDATA%\\DeckCraft. Menghapus app TIDAK membuang folder itu; setel_ulang dikosongkan karena aksi folder hanya berlaku di folder app.",
+    "perbarui": "xcopy menimpa berkas program saja; data pengguna tak ada di zip sehingga utuh.",
+    "mcp": "Bidang \"mcp\": adaCODE App (>= 0.3.52) menulis apps/deckcraft/.mcp.json; adaVIBE menyambungkan server \"adalocal-deckcraft\" ke tiap sesi (akar = folder proyek sesi) dan adaGENTIC memakainya lewat lokal_mcp_alat/lokal_mcp_panggil (akar = ~/adaLOCAL). @folder_kerja@ diisi app, bukan server. Di luar akar ditolak (\"automation path rejected\") — teruji 25 Okt.",
+    "ai_bawaan": "Lapisan AI Craft (craft-ai-integrations) masih draf & belum terhubung ke app — AI masuk lewat agen adaCODE (MCP), bukan model bawaan.",
+    "os": "Pilot hanya Windows x64. Linux & Mac tersedia di hulu, belum diuji.",
+    "tar": "tar.exe bawaan Windows dipanggil dgn jalur lengkap: GNU tar (Git for Windows di PATH) menolak zip."
+  },
+  "populer": 0,
+  "unggulan": false,
+  "ditambahkan": "2026-10-25",
+  "mcp": {
+    "perintah_windows": "{{folder_app}}\\app\\deckcraft-cli.exe",
+    "args": [
+      "mcp",
+      "--automation-read-root",
+      "@folder_kerja@",
+      "--automation-write-root",
+      "@folder_kerja@"
+    ],
+    "jelas": "Susun presentasi di folder kerja: buat deck bertema, tambah slide/teks/gambar/tabel/grafik, simpan PPTX, ekspor PDF/PNG.",
+    "petunjuk": "Cara pakai: (1) new_presentation {theme} (tema: DeckCraft, Harbor, Ember, Meadow, Nocturne, Paper, Coral Reef, Slate) atau open_presentation {path}. (2) add_slide {layout, title, body} — body satu poin per baris; isi lain lewat add_text_box/insert_picture/insert_table/insert_chart; ubah teks bentuk dengan set_text {id} (id dari inspect_slide). (3) Periksa dengan inspect_slide atau render_slide. (4) save_presentation {path: .pptx} dan, bila diminta, export {path, format: pdf|png}. Simpan ke nama BARU kecuali pengguna minta menimpa. Jalur berkas harus di dalam folder kerja."
+  }
+}
